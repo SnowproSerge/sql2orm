@@ -1,0 +1,28 @@
+{
+  "name": "snowserge/sql2orm",
+  "description": "Autogenerate code for my mini-orm for existing SQL scheme",
+  "keywords": ["PHP", "sql", "MyAql", "PostgreSql"],
+  "type": "application",
+  "homepage": "https://github.com/SnowproSerge/sql2orm",
+  "license": "Apache License 2.0",
+  "authors": [
+    {
+      "name": "Sergey Naryshkin",
+      "homepage": "https://github.com/SnowproSerge/"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "ext-json": "*",
+    "monolog/monolog": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">=6.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "SnowSerge\\Sql2Orm\\": "src",
+      "SnowSerge\\Sql2Orm\\Test\\": "test"
+    }
+  }
+}
