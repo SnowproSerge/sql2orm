@@ -10,18 +10,18 @@ namespace SnowSerge\Sql2Orm\Db;
 abstract class DbStructure
 {
     /** @var DbConnection */
-    public $dbConnector;
+    protected $dbConnector;
 
     /**
      * DbStructure constructor.
-     * @param DbConnection $dbConnector
      */
-    public function __construct(DbConnection $dbConnector)
+    public function __construct($nameDb,$host,$user,$password,$port=0)
     {
-        $this->dbConnector = $dbConnector;
+        $this->dbConnector = $this->setConnection($nameDb,$host,$user,$password,$port);
     }
 
-    abstract public function getListTables();
-    abstract public function getListFields($table);
-    abstract public function getRelations($table);
+    abstract public function setConnection($nameDb,$host,$user,$password,$port): DbConnection;
+    abstract public function getListTables(): array;
+    abstract public function getListFields($table): array;
+    abstract public function getRelations($table): array;
 }

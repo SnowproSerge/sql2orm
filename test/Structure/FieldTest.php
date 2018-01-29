@@ -4,10 +4,11 @@
  * @date 28.01.2018
  */
 
-namespace SnowSerge\Sql2Orm\Structure;
+namespace SnowSerge\Sql2Orm\Test\Structure;
 
 
 use PHPUnit\Framework\TestCase;
+use SnowSerge\Sql2Orm\Structure\Field;
 
 class FieldTest extends TestCase
 {

@@ -27,6 +27,7 @@ class DbConnection
     public function __construct($host, $port, $user, $password, $nameDb,$driver='mysql',$schema = null)
     {
         $dsn = $driver . ':' . 'host=' . $host . ';dbname='.$nameDb . ';port='. $port.';charset=UTF8';
+        echo $dsn;
         $this->pdo = new \PDO($dsn,$user,$password);
     }
 

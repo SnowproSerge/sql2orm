@@ -12,5 +12,6 @@ if(count($argv) !== 4) {
 } else {
     echo "SQL {$argv[1]} {$argv[2]} {$argv[3]} \n";
 }
+phpinfo();
 //echo "Enter "
 //$db =readline();
