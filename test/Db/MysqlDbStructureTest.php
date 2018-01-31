@@ -14,7 +14,7 @@ class MysqlDbStructureTest extends TestCase
 
     public function testGetListTables()
     {
-        $my = new MysqlDbStructure('sovet','localhost','sovet', 'sovet');
+        $my = new MysqlDbStructure('sovet','mysql_c','sovet', 'sovet');
         $arr = $my->getListTables();
         var_dump($arr);
         $this->assertArraySubset(['instr','meeting','member'],$arr);

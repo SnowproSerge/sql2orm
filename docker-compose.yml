@@ -1,0 +1,23 @@
+version: "3"
+services:
+  php_c:
+    build: ./docker/php
+    container_name: php-cli
+    volumes:
+      - .:/opt
+      - ./docker/php/php.ini:/usr/local/etc/php.ini
+
+  mysql_c:
+    image: mysql:5.7
+    container_name: mysql_db
+    volumes:
+      - ./docker/mysql:/var/lib/mysql/
+#    command: --init-file /var/lib/mysql/sovet.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sovet
+      MYSQL_USER: sovet
+      MYSQL_PASSWORD: pass
+    ports:
+      - 3306:3306
+
