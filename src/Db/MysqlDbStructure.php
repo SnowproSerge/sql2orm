@@ -30,8 +30,7 @@ class MysqlDbStructure extends DbStructure
 
     public function getListFields($table): array
     {
-        $sql = "SELECT `COLUMN_NAME`,`COLUMN_TYPE`,`COLUMN_KEY` FROM `INFORMATION_SCHEMA`.`columns` WHERE `TABLE_SCHEMA` = SCHEMA() AND `TABLE_NAME` = '{$table}'";
-//        $stat = $this->dbConnector->getPdo()->query('show columns from '.$table);
+        $sql = "SELECT `COLUMN_NAME`,`COLUMN_TYPE`,`COLUMN_KEY`,`IS_NULLABLE` FROM `INFORMATION_SCHEMA`.`columns` WHERE `TABLE_SCHEMA` = SCHEMA() AND `TABLE_NAME` = '{$table}'";
         $stat = $this->dbConnector->getPdo()->query($sql);
         return $stat->fetchAll(PDO::FETCH_ASSOC);
     }

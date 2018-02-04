@@ -40,7 +40,7 @@ class MysqlDbStructureTest extends TestCase
     public function testGetListFields()
     {
         $fields = $this->obj->getListFields('db');
-        $this->assertContains(['COLUMN_NAME'=>'Host','COLUMN_TYPE'=>'char(60)','COLUMN_KEY'=>'PRI'],$fields);
+        $this->assertContains(['COLUMN_NAME'=>'Host','COLUMN_TYPE'=>'char(60)','COLUMN_KEY'=>'PRI','IS_NULLABLE'=>'NO'],$fields);
     }
 
     /**

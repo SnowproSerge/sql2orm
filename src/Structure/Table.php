@@ -59,4 +59,9 @@ class Table
         return $this->manys;
     }
 
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
+    }
+
 }

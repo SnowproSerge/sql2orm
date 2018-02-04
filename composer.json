@@ -1,7 +1,7 @@
 {
   "name": "snowserge/sql2orm",
   "description": "Autogenerate code for my mini-orm for existing SQL scheme",
-  "keywords": ["PHP", "sql", "MyAql", "PostgreSql"],
+  "keywords": ["PHP", "sql", "MySql", "PostgreSql"],
   "type": "application",
   "homepage": "https://github.com/SnowproSerge/sql2orm",
   "license": "Apache License 2.0",

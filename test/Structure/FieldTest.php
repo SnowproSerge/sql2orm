@@ -19,7 +19,10 @@ class FieldTest extends TestCase
           'simple' => ['camel','camel'],
           'snake-' => ['camel-case-will-work','camelCaseWillWork'],
           'snake_' => ['camel_case_will_work','camelCaseWillWork'],
-          'snake-_' => ['camel_case-will_work','camelCaseWillWork']
+          'snake-_' => ['camel_case-will_work','camelCaseWillWork'],
+          'Snake-' => ['Camel_case-will_work','camelCaseWillWork'],
+          'SNAKE_' => ['CAMEL_case-will_work','camelCaseWillWork'],
+          'SNAKE_S' => ['CAMEL_CASE-WILL_WORK','camelCaseWillWork']
         ];
     }
 
