@@ -24,4 +24,5 @@ abstract class DbStructure
     abstract public function getListTables(): array;
     abstract public function getListFields($table): array;
     abstract public function getRelations($table): array;
+    abstract public function closeConnection(): void;
 }

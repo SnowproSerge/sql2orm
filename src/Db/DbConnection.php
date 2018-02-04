@@ -47,6 +47,13 @@ class DbConnection
         return $this->schema;
     }
 
+    /**
+     *
+     */
+    public function close(): void
+    {
+        $this->pdo = null;
+    }
 
 
 }

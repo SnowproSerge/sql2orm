@@ -5,6 +5,7 @@
  */
 
 namespace SnowSerge\Sql2Orm\Db;
+use PDO;
 
 /**
  * Generated for MySQL
@@ -24,7 +25,7 @@ class MysqlDbStructure extends DbStructure
     public function getListTables(): array
     {
         $stat = $this->dbConnector->getPdo()->query('SHOW TABLES');
-        return $stat->fetchAll();
+        return $stat->fetchAll(PDO::FETCH_COLUMN);
     }
 
     public function getListFields($table): array
@@ -37,6 +38,10 @@ class MysqlDbStructure extends DbStructure
     {
         // TODO: Implement getRelations() method.
         return [];
+    }
+
+    public function closeConnection(): void
+    {
     }
 
 

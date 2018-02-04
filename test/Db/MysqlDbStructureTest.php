@@ -11,13 +11,23 @@ use PHPUnit\Framework\TestCase;
 
 class MysqlDbStructureTest extends TestCase
 {
+    /** @var MysqlDbStructure */
+    protected $obj;
 
+    protected function setUp()
+    {
+        $this->obj = new MysqlDbStructure('mysql','localhost','root', 'root');
+    }
+
+    protected function tearDown()
+    {
+        $this->obj->closeConnection();
+    }
     public function testGetListTables()
     {
-        $my = new MysqlDbStructure('sovet','mysql_c','sovet', 'sovet');
-        $arr = $my->getListTables();
-        var_dump($arr);
-        $this->assertArraySubset(['instr','meeting','member'],$arr);
+
+        $arr = $this->obj->getListTables();
+        $this->assertContains('columns_priv',$arr);
     }
 
     public function testGetListFields()
