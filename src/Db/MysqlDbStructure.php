@@ -24,13 +24,13 @@ class MysqlDbStructure extends DbStructure
 
     public function getListTables(): array
     {
-        $stat = $this->dbConnector->getPdo()->query('SHOW TABLES');
+        $stat = $this->dbConnector->getPdo()->query('SELECT `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`= SCHEMA()');
         return $stat->fetchAll(PDO::FETCH_COLUMN);
     }
 
     public function getListFields($table): array
     {
-        $sql = "select COLUMN_NAME,COLUMN_TYPE,COLUMN_KEY from `INFORMATION_SCHEMA`.columns where TABLE_SCHEMA = SCHEMA() and TABLE_NAME = '{$table}'";
+        $sql = "SELECT `COLUMN_NAME`,`COLUMN_TYPE`,`COLUMN_KEY` FROM `INFORMATION_SCHEMA`.`columns` WHERE `TABLE_SCHEMA` = SCHEMA() AND `TABLE_NAME` = '{$table}'";
 //        $stat = $this->dbConnector->getPdo()->query('show columns from '.$table);
         $stat = $this->dbConnector->getPdo()->query($sql);
         return $stat->fetchAll(PDO::FETCH_ASSOC);
@@ -38,11 +38,11 @@ class MysqlDbStructure extends DbStructure
 
     public function getRelations($table): array
     {
-        $sql = 'select `TABLE_NAME`, `COLUMN_NAME`, `REFERENCED_TABLE_NAME`, `REFERENCED_COLUMN_NAME`'
+        $sql = 'SELECT `TABLE_NAME`, `COLUMN_NAME`, `REFERENCED_TABLE_NAME`, `REFERENCED_COLUMN_NAME`'
             . ' FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE`'
-            . "WHERE `TABLE_SCHEMA` = SCHEMA() AND `REFERENCED_TABLE_NAME` IS NOT NULL AND `TABLE_NAME` = '$table'";
+            . "WHERE `TABLE_SCHEMA` = SCHEMA() AND `REFERENCED_TABLE_NAME` IS NOT NULL AND `TABLE_NAME` = '{$table}'";
         $stat = $this->dbConnector->getPdo()->query($sql);
-        return $stat->fetchAll(PDO::FETCH_COLUMN);
+        return $stat->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function closeConnection(): void
