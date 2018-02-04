@@ -23,6 +23,10 @@ class MysqlDbStructureTest extends TestCase
     {
         $this->obj->closeConnection();
     }
+
+    /**
+     * @throws \Exception
+     */
     public function testGetListTables()
     {
 
@@ -30,13 +34,21 @@ class MysqlDbStructureTest extends TestCase
         $this->assertContains('columns_priv',$arr);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetListFields()
     {
-        $this->assertEquals('','');
+        $fields = $this->obj->getListFields('db');
+        $this->assertContains(['COLUMN_NAME'=>'Host','COLUMN_TYPE'=>'char(60)','COLUMN_KEY'=>'PRI'],$fields);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetRelations()
     {
-        $this->assertEquals('','');
+        $fields = $this->obj->getRelations('db');
+        $this->assertEmpty($fields);
     }
 }

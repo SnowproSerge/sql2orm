@@ -30,18 +30,24 @@ class MysqlDbStructure extends DbStructure
 
     public function getListFields($table): array
     {
-        // TODO: Implement getListFields() method.
-        return [];
+        $sql = "select COLUMN_NAME,COLUMN_TYPE,COLUMN_KEY from `INFORMATION_SCHEMA`.columns where TABLE_SCHEMA = SCHEMA() and TABLE_NAME = '{$table}'";
+//        $stat = $this->dbConnector->getPdo()->query('show columns from '.$table);
+        $stat = $this->dbConnector->getPdo()->query($sql);
+        return $stat->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getRelations($table): array
     {
-        // TODO: Implement getRelations() method.
-        return [];
+        $sql = 'select `TABLE_NAME`, `COLUMN_NAME`, `REFERENCED_TABLE_NAME`, `REFERENCED_COLUMN_NAME`'
+            . ' FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE`'
+            . "WHERE `TABLE_SCHEMA` = SCHEMA() AND `REFERENCED_TABLE_NAME` IS NOT NULL AND `TABLE_NAME` = '$table'";
+        $stat = $this->dbConnector->getPdo()->query($sql);
+        return $stat->fetchAll(PDO::FETCH_COLUMN);
     }
 
     public function closeConnection(): void
     {
+        $this->dbConnector->close();
     }
 
 
