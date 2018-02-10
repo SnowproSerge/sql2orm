@@ -2,9 +2,9 @@ version: "3"
 services:
   php_c:
     build: ./docker/php
-    container_name: php-cli
+    container_name: php_cli
     volumes:
-      - .:/opt
+      - .:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php.ini
 
   mysql_c:

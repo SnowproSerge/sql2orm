@@ -15,8 +15,6 @@ class Table
     private $fields;
     /** @var Field[] */
     private $primary;
-    /** @var Relation[] */
-    private $manys;
 
     /**
      * Table constructor.
@@ -49,19 +47,6 @@ class Table
     public function getPrimary(): array
     {
         return $this->primary;
-    }
-
-    /**
-     * @return Relation[]
-     */
-    public function getManys(): array
-    {
-        return $this->manys;
-    }
-
-    public function setFields($fields)
-    {
-        $this->fields = $fields;
     }
 
 }

@@ -16,7 +16,7 @@ class MysqlDbStructureTest extends TestCase
 
     protected function setUp()
     {
-        $this->obj = new MysqlDbStructure('mysql','localhost','root', 'root');
+        $this->obj = new MysqlDbStructure('sovet','localhost','root', 'root');
     }
 
     protected function tearDown()
@@ -31,7 +31,7 @@ class MysqlDbStructureTest extends TestCase
     {
 
         $arr = $this->obj->getListTables();
-        $this->assertContains('columns_priv',$arr);
+        $this->assertContains('synod',$arr);
     }
 
     /**
@@ -39,8 +39,9 @@ class MysqlDbStructureTest extends TestCase
      */
     public function testGetListFields()
     {
-        $fields = $this->obj->getListFields('db');
-        $this->assertContains(['COLUMN_NAME'=>'Host','COLUMN_TYPE'=>'char(60)','COLUMN_KEY'=>'PRI','IS_NULLABLE'=>'NO'],$fields);
+        $fields = $this->obj->getListFields('city');
+        var_dump($fields);
+        $this->assertContains(['COLUMN_NAME'=>'id','COLUMN_TYPE'=>'int(11)','COLUMN_KEY'=>'PRI','IS_NULLABLE'=>'NO'],$fields);
     }
 
     /**

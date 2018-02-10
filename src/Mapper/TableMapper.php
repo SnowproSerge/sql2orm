@@ -44,7 +44,7 @@ class TableMapper
      * @param array $arrFields
      * @return Field[]
      */
-    public function getFieldList(array $arrFields): array
+    private function getFieldList(array $arrFields): array
     {
         $fields = [];
         foreach ($arrFields as $field) {
@@ -57,5 +57,8 @@ class TableMapper
         return $fields;
     }
 
+    private function getRelations($tableNAme)
+    {
 
+    }
 }
