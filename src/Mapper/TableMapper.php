@@ -12,6 +12,7 @@ namespace SnowSerge\Sql2Orm\Mapper;
 
 use SnowSerge\Sql2Orm\Db\DbStructure;
 use SnowSerge\Sql2Orm\Structure\Field;
+use SnowSerge\Sql2Orm\Structure\Relation;
 use SnowSerge\Sql2Orm\Structure\Table;
 
 class TableMapper
@@ -29,7 +30,7 @@ class TableMapper
     }
 
 
-    public function mapTable($tableName): Table
+    public function getTable($tableName): Table
     {
         $table = new Table($tableName);
         $listFields = $this->getFieldList($this->dbStructure->getListFields($tableName));
@@ -57,8 +58,22 @@ class TableMapper
         return $fields;
     }
 
-    private function getRelations($tableNAme)
+    /**
+     * @param $tableName string
+     * @return array
+     */
+    private function getRelation($tableName): array
     {
-
+        $relations = [];
+        $arrRelation = $this->dbStructure->getRelations($tableName);
+        foreach ($arrRelation as $relation) {
+            $rel = Relation::get()
+                ->setTableMany($relation['TABLE_NAME'])
+                ->setFieldMany($relation['COLUMN_NAME'])
+                ->setTableOne($relation['REFERENCED_TABLE_NAME'])
+                ->setFieldOne($relation['REFERENCED_COLUMN_NAME']);
+            $relations[] = $rel;
+        }
+        return $relations;
     }
 }

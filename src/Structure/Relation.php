@@ -25,17 +25,9 @@ class Relation
 
     /**
      * Relation constructor.
-     * @param $tableOne
-     * @param $fieldOne
-     * @param $tableMany
-     * @param $fieldMany
      */
-    public function __construct($tableOne, $fieldOne, $tableMany, $fieldMany)
+    public function __construct()
     {
-        $this->tableOne = $tableOne;
-        $this->fieldOne = $fieldOne;
-        $this->tableMany = $tableMany;
-        $this->fieldMany = $fieldMany;
     }
 
     /**
@@ -68,5 +60,50 @@ class Relation
     public function getFieldMany(): Field
     {
         return $this->fieldMany;
+    }
+
+    /**
+     * @param Table $tableOne
+     * @return Relation
+     */
+    public function setTableOne(Table $tableOne): Relation
+    {
+        $this->tableOne = $tableOne;
+        return $this;
+    }
+
+    /**
+     * @param Field $fieldOne
+     * @return Relation
+     */
+    public function setFieldOne(Field $fieldOne): Relation
+    {
+        $this->fieldOne = $fieldOne;
+        return $this;
+    }
+
+    /**
+     * @param Table $tableMany
+     * @return Relation
+     */
+    public function setTableMany(Table $tableMany): Relation
+    {
+        $this->tableMany = $tableMany;
+        return $this;
+    }
+
+    /**
+     * @param Field $fieldMany
+     * @return Relation
+     */
+    public function setFieldMany(Field $fieldMany): Relation
+    {
+        $this->fieldMany = $fieldMany;
+        return $this;
+    }
+
+    public static function get(): Relation
+    {
+        return new self();
     }
 }

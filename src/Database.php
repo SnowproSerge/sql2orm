@@ -11,12 +11,15 @@ namespace SnowSerge\Sql2Orm;
 
 use SnowSerge\Sql2Orm\Db\DbStructure;
 use SnowSerge\Sql2Orm\Mapper\TableMapper;
+use SnowSerge\Sql2Orm\Structure\Relation;
 use SnowSerge\Sql2Orm\Structure\Table;
 
-class FillTables
+class Database
 {
     /** @var Table[] */
     private $tables;
+    /** @var Relation[] */
+    private $relations;
 
     /** @var DbStructure */
     private $dbStructure;
@@ -40,7 +43,7 @@ class FillTables
         $tables = [];
         $mapper = new TableMapper($this->dbStructure);
         foreach ($arrTables as $table) {
-            $tables[] = $mapper->mapTable($table);
+            $tables[] = $mapper->getTables($table);
         }
         $this->tables = $tables;
     }

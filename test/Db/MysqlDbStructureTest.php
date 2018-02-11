@@ -16,7 +16,7 @@ class MysqlDbStructureTest extends TestCase
 
     protected function setUp()
     {
-        $this->obj = new MysqlDbStructure('sovet','localhost','root', 'root');
+        $this->obj = new MysqlDbStructure('sovet','mysql_c','root', 'root');
     }
 
     protected function tearDown()
