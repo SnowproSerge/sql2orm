@@ -35,6 +35,10 @@ class MysqlDbStructure extends DbStructure
         return $stat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param $table
+     * @return array
+     */
     public function getRelations($table): array
     {
         $sql = 'SELECT `TABLE_NAME`, `COLUMN_NAME`, `REFERENCED_TABLE_NAME`, `REFERENCED_COLUMN_NAME`'

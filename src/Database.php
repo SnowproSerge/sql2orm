@@ -43,7 +43,8 @@ class Database
         $tables = [];
         $mapper = new TableMapper($this->dbStructure);
         foreach ($arrTables as $table) {
-            $tables[] = $mapper->getTables($table);
+            $newTable = $mapper->getTable($table);
+            $tables[$newTable->getName()] = $newTable;
         }
         $this->tables = $tables;
     }

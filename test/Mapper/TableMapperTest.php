@@ -27,16 +27,16 @@ class TableMapperTest extends TestCase
                     'COLUMN_KEY' => 'PRI',
                     'IS_NULLABLE' => 'Yes'
                 ],
-                [ 'host', 'char(60)', true, false ]
+                ['host', 'char(60)', true, false]
             ],
-           'two' => [
+            'two' => [
                 [
                     'COLUMN_NAME' => 'Host_outweaR',
                     'COLUMN_TYPE' => 'char(60)',
                     'COLUMN_KEY' => 'UNI',
                     'IS_NULLABLE' => 'no'
                 ],
-                [ 'hostOutwear', 'char(60)', false, true ]
+                ['hostOutwear', 'char(60)', false, true]
             ]
         ];
     }
@@ -45,17 +45,19 @@ class TableMapperTest extends TestCase
      * @dataProvider providerGetFieldList
      * @throws \Exception
      */
-    public function testGetFieldList($in,$out)
+    public function testGetFieldList($in, $out): void
     {
-        $dbStr = $this->getMockBuilder(MysqlDbStructure::class)->setConstructorArgs(['db','db','db','db'])->getMock();
+        $dbStr = $this->getMockBuilder(MysqlDbStructure::class)->setConstructorArgs(['db', 'db', 'db', 'db'])->getMock();
         $mapper = new TableMapper($dbStr);
         /** @var Field $fil */
-        $fil = $this->callMethod($mapper,'getFieldList',[[$in]])[$in['COLUMN_NAME']];
+        $fil = $this->callMethod($mapper, 'getFieldList', [[$in]])[$in['COLUMN_NAME']];
 //        $fil = $mapper->getFieldList([$in])[$in['COLUMN_NAME']];
-        $this->assertArraySubset($out,[$fil->getOrmName(),$fil->getType(),$fil->isNullable(),$fil->isUnique()]);
+        $this->assertArraySubset($out, [$fil->getOrmName(), $fil->getType(), $fil->isNullable(), $fil->isUnique()]);
     }
 
-    public function callMethod($obj, $name, array $args) {
+
+    public function callMethod($obj, $name, array $args)
+    {
         try {
             $class = new \ReflectionClass($obj);
         } catch (\ReflectionException $e) {

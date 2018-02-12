@@ -13,7 +13,7 @@ class Table
     private $name;
     /** @var Field[] */
     private $fields;
-    /** @var Field[] */
+    /** @var Field */
     private $primary;
 
     /**
@@ -42,11 +42,42 @@ class Table
     }
 
     /**
-     * @return Field[]
+     * @param $name
+     * @return Field|null
      */
-    public function getPrimary(): array
+    public function getField($name): ?Field
+    {
+        return $this->fields[$name]?? null;
+    }
+
+    /**
+     * @return Field
+     */
+    public function getPrimary(): Field
     {
         return $this->primary;
     }
 
+    /**
+     * @param Field[] $fields
+     * @return Table
+     */
+    public function setFields(array $fields): self
+    {
+        $this->fields = $fields;
+        return $this;
+    }
+
+    /**
+     * @param Field $primary
+     */
+    public function setPrimary($primary): void
+    {
+        $this->primary = $primary;
+    }
+
+    public static function getTable($name): Table
+    {
+        return new self($name);
+    }
 }

@@ -59,13 +59,13 @@ class TableMapper
     }
 
     /**
-     * @param $tableName string
+     * @param $tables Table[]
      * @return array
      */
-    private function getRelation($tableName): array
+    private function getRelations($tables): array
     {
         $relations = [];
-        $arrRelation = $this->dbStructure->getRelations($tableName);
+        $arrRelation = $this->dbStructure->getRelations($tables);
         foreach ($arrRelation as $relation) {
             $rel = Relation::get()
                 ->setTableMany($relation['TABLE_NAME'])

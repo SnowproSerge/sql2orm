@@ -16,7 +16,7 @@ class MysqlDbStructureTest extends TestCase
 
     protected function setUp()
     {
-        $this->obj = new MysqlDbStructure('mysql','mysql_c','root', 'root');
+        $this->obj = new MysqlDbStructure('sovet','mysql_c','root', 'root');
     }
 
     protected function tearDown()
@@ -31,7 +31,7 @@ class MysqlDbStructureTest extends TestCase
     {
 
         $arr = $this->obj->getListTables();
-        $this->assertContains('event',$arr);
+        $this->assertContains('councilman',$arr);
     }
 
     /**
@@ -39,9 +39,8 @@ class MysqlDbStructureTest extends TestCase
      */
     public function testGetListFields()
     {
-        $fields = $this->obj->getListFields('db');
-        var_dump($fields);
-        $this->assertContains(['COLUMN_NAME'=>'Host','COLUMN_TYPE'=>'char(60)','COLUMN_KEY'=>'PRI','IS_NULLABLE'=>'NO'],$fields);
+        $fields = $this->obj->getListFields('instructor');
+        $this->assertContains(['COLUMN_NAME'=>'first_name','COLUMN_TYPE'=>'varchar(40)','COLUMN_KEY'=>'','IS_NULLABLE'=>'NO'],$fields);
     }
 
     /**
@@ -49,7 +48,8 @@ class MysqlDbStructureTest extends TestCase
      */
     public function testGetRelations()
     {
-        $fields = $this->obj->getRelations('db');
-        $this->assertEmpty($fields);
+        $re = $this->obj->getRelations('councilman');
+//        var_dump($re);
+        $this->assertEquals(\count($re),2);
     }
 }
