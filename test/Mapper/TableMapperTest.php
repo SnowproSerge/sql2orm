@@ -50,7 +50,18 @@ class TableMapperTest extends TestCase
         $dbStr = $this->getMockBuilder(MysqlDbStructure::class)->setConstructorArgs(['db','db','db','db'])->getMock();
         $mapper = new TableMapper($dbStr);
         /** @var Field $fil */
-        $fil = $mapper->getFieldList([$in])[$in['COLUMN_NAME']];
+        $fil = $this->callMethod($mapper,'getFieldList',[[$in]])[$in['COLUMN_NAME']];
+//        $fil = $mapper->getFieldList([$in])[$in['COLUMN_NAME']];
         $this->assertArraySubset($out,[$fil->getOrmName(),$fil->getType(),$fil->isNullable(),$fil->isUnique()]);
+    }
+
+    public function callMethod($obj, $name, array $args) {
+        try {
+            $class = new \ReflectionClass($obj);
+        } catch (\ReflectionException $e) {
+        }
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
+        return $method->invokeArgs($obj, $args);
     }
 }
