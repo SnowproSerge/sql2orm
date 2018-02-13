@@ -67,12 +67,14 @@ class TableMapper
         $relations = [];
         $arrRelation = $this->dbStructure->getRelations($tables);
         foreach ($arrRelation as $relation) {
+            $tableMany = $tables[$relation['TABLE_NAME']];
+            $tableOne = $tables[$relation['REFERENCED_TABLE_NAME']];
             $rel = Relation::get()
-                ->setTableMany($relation['TABLE_NAME'])
-                ->setFieldMany($relation['COLUMN_NAME'])
-                ->setTableOne($relation['REFERENCED_TABLE_NAME'])
-                ->setFieldOne($relation['REFERENCED_COLUMN_NAME']);
-            $relations[] = $rel;
+                ->setTableMany($tableMany)
+                ->setFieldMany($tableMany->getField($relation['COLUMN_NAME']))
+                ->setTableOne($tableOne)
+                ->setFieldOne($tableOne->getField($relation['REFERENCED_COLUMN_NAME']));
+            $relations[$tableMany->getName(). '->' .$tableOne->getName()] = $rel;
         }
         return $relations;
     }
