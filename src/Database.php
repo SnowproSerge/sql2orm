@@ -36,13 +36,15 @@ class Database
         $this->tables = [];
         $this->relations = [];
         $this->mapper = new TableMapper();
+        $this->setTables();
+        $this->setRelation();
     }
 
 
     /**
      *
      */
-    public function setTables(): void
+    private function setTables(): void
     {
         $arrTables = $this->dbStructure->getListTables();
         foreach ($arrTables as $table) {
@@ -54,7 +56,7 @@ class Database
 
     /**
      */
-    private function setRelation()
+    private function setRelation(): void
     {
         foreach ($this->tables as $table) {
             $relations = $this->dbStructure->getRelations($table->getName());
@@ -64,4 +66,21 @@ class Database
             }
         }
     }
+
+    /**
+     * @return Table[]
+     */
+    public function getTables(): array
+    {
+        return $this->tables;
+    }
+
+    /**
+     * @return Structure\Relation[][]
+     */
+    public function getRelations(): array
+    {
+        return $this->relations;
+    }
+
 }
