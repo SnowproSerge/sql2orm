@@ -47,8 +47,7 @@ class TableMapperTest extends TestCase
      */
     public function testGetFieldList($in, $out): void
     {
-        $dbStr = $this->getMockBuilder(MysqlDbStructure::class)->setConstructorArgs(['db', 'db', 'db', 'db'])->getMock();
-        $mapper = new TableMapper($dbStr);
+        $mapper = new TableMapper();
         /** @var Field $fil */
         $fil = $this->callMethod($mapper, 'getFieldList', [[$in]])[$in['COLUMN_NAME']];
 //        $fil = $mapper->getFieldList([$in])[$in['COLUMN_NAME']];

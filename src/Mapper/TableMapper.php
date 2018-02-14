@@ -17,27 +17,20 @@ use SnowSerge\Sql2Orm\Structure\Table;
 
 class TableMapper
 {
-    /** @var DbStructure */
-    private $dbStructure;
 
     /**
      * TableMapper constructor.
-     * @param DbStructure $dbStructure
      */
-    public function __construct(DbStructure $dbStructure)
+    public function __construct()
     {
-        $this->dbStructure = $dbStructure;
     }
 
 
-    public function getTable($tableName): Table
+    public function getTable($tableName,$fields): Table
     {
         $table = new Table($tableName);
-        $listFields = $this->getFieldList($this->dbStructure->getListFields($tableName));
+        $listFields = $this->getFieldList($fields);
         $table->setFields($listFields);
-
-
-        // todo make method
         return $table;
     }
 
@@ -60,22 +53,17 @@ class TableMapper
 
     /**
      * @param $tables Table[]
-     * @return array
+     * @param $relation array
+     * @return Relation
      */
-    private function getRelations($tables): array
+    public function getRelations(array $tables,array $relation): Relation
     {
-        $relations = [];
-        $arrRelation = $this->dbStructure->getRelations($tables);
-        foreach ($arrRelation as $relation) {
             $tableMany = $tables[$relation['TABLE_NAME']];
             $tableOne = $tables[$relation['REFERENCED_TABLE_NAME']];
-            $rel = Relation::get()
+            return Relation::get()
                 ->setTableMany($tableMany)
                 ->setFieldMany($tableMany->getField($relation['COLUMN_NAME']))
                 ->setTableOne($tableOne)
                 ->setFieldOne($tableOne->getField($relation['REFERENCED_COLUMN_NAME']));
-            $relations[$tableMany->getName(). '->' .$tableOne->getName()] = $rel;
-        }
-        return $relations;
     }
 }

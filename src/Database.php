@@ -18,11 +18,13 @@ class Database
 {
     /** @var Table[] */
     private $tables;
-    /** @var Relation[] */
+    /** @var Relation[][] */
     private $relations;
 
     /** @var DbStructure */
     private $dbStructure;
+    /** @var TableMapper */
+    private $mapper;
 
     /**
      * FillTables constructor.
@@ -31,6 +33,9 @@ class Database
     public function __construct(DbStructure $dbStructure)
     {
         $this->dbStructure = $dbStructure;
+        $this->tables = [];
+        $this->relations = [];
+        $this->mapper = new TableMapper();
     }
 
 
@@ -40,13 +45,23 @@ class Database
     public function setTables(): void
     {
         $arrTables = $this->dbStructure->getListTables();
-        $tables = [];
-        $mapper = new TableMapper($this->dbStructure);
         foreach ($arrTables as $table) {
-            $newTable = $mapper->getTable($table);
-            $tables[$newTable->getName()] = $newTable;
+            $fields = $this->dbStructure->getListFields($table);
+            $newTable = $this->mapper->getTable($table,$fields);
+            $this->tables[$newTable->getName()] = $newTable;
         }
-        $this->tables = $tables;
     }
 
+    /**
+     */
+    private function setRelation()
+    {
+        foreach ($this->tables as $table) {
+            $relations = $this->dbStructure->getRelations($table->getName());
+            foreach ($relations as $relation) {
+                $rel = $this->mapper->getRelations($this->tables,$relation);
+                $this->relations[$rel->getTableMany()->getName()][$rel->getTableOne()->getName()] = $rel;
+            }
+        }
+    }
 }
