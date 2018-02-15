@@ -6,10 +6,24 @@
 
 namespace SnowSerge\Sql2Orm\Dto;
 
+use SnowSerge\Sql2Orm\Structure\Field;
 
-interface FieldDto
+
+abstract class FieldDto
 {
-    public function printDeclaration(): string;
-    public function printGetter(): string;
-    public function printSetter(): string;
+    /** @var Field */
+    protected $field;
+
+    /**
+     * FieldDto constructor.
+     * @param Field $field
+     */
+    public function __construct(Field $field)
+    {
+        $this->field = $field;
+    }
+
+    abstract public function printDeclaration(): string;
+    abstract public function printGetter(): string;
+    abstract public function printSetter(): string;
 }

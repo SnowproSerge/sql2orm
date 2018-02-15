@@ -9,6 +9,7 @@ namespace SnowSerge\Sql2Orm\Structure;
 
 class Field
 {
+// TODO make driver type conversation
     const STRING = 'string';
     const INTEGER = 'int';
     const DATE = 'date';
