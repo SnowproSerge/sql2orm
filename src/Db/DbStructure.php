@@ -25,5 +25,5 @@ abstract class DbStructure
     abstract public function getListFields($table): array;
     abstract public function getRelations($table): array;
     abstract public function closeConnection(): void;
-//    abstract public function convertType(string $type): string;
+    abstract public function convertType(string $type): string;
 }

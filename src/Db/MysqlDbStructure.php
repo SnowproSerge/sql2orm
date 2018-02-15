@@ -14,6 +14,20 @@ use PDO;
  */
 class MysqlDbStructure extends DbStructure
 {
+    private static $types = [
+        '/^bit$|^bit\([1-9][0-9]?\)$/' => 'byte',
+        '/^smallint$|^smallint\([1-9][0-9]?\)$/' => 'byte',
+        '/^mediumint$|^mediumint\([1-9][0-9]?\)$/' => 'int',
+        '/^int$|^int\([1-9][0-9]?\)$/' => 'int',
+        '/^integer$|^integer\([1-9][0-9]?\)$/' => 'int',
+        '/^bigint$|^bigint\([1-9][0-9]?\)$/' => 'long',
+        '/^serial$/' => 'long',
+        '/^dec$|^dec\([1-9][0-9]?\)$|^dec\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'float',
+        '/^decimal$|^decimal\([1-9][0-9]?\)$|^decimal\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'float',
+        '/^double$|^double\([1-9][0-9]?\)$|^double\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'double',
+        '/^float$|^float\([1-9][0-9]?\)$|^float\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'float',
+    ];
+
     public function setConnection($nameDb, $host, $user, $password, $port): DbConnection
     {
         if(empty($port)) {
@@ -53,5 +67,16 @@ class MysqlDbStructure extends DbStructure
         $this->dbConnector->close();
     }
 
-
+    public function convertType(string $type): string
+    {
+        $t = strtolower(trim($type));
+        $count = 0;
+        foreach (self::$types as $pattern => $replacement) {
+            $out = preg_replace($pattern, $replacement, $t, 1, $count);
+            if($count) {
+                return $out;
+            }
+        }
+        return 'string';
+    }
 }

@@ -36,13 +36,16 @@ class TableMapper
 
     /**
      * @param array $arrFields
+     * @param $convert callable
      * @return Field[]
      */
+//    private function getFieldList(array $arrFields,callable $convert): array
     private function getFieldList(array $arrFields): array
     {
         $fields = [];
         foreach ($arrFields as $field) {
             $newField = Field::getField($field['COLUMN_NAME'])
+//                ->setType($convert($field['COLUMN_TYPE']))
                 ->setType($field['COLUMN_TYPE'])
                 ->setNullable(strtolower($field['IS_NULLABLE']) === 'yes')
                 ->setUnique(strtolower($field['COLUMN_KEY']) === 'uni');
