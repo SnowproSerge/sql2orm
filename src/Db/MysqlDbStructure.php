@@ -6,6 +6,7 @@
 
 namespace SnowSerge\Sql2Orm\Db;
 use PDO;
+use SnowSerge\Sql2Orm\Structure\Field;
 
 /**
  * Generated for MySQL
@@ -15,13 +16,13 @@ use PDO;
 class MysqlDbStructure extends DbStructure
 {
     private static $types = [
-        '/^bit$|^bit\([1-9][0-9]?\)$/' => 'byte',
-        '/^smallint$|^smallint\([1-9][0-9]?\)$/' => 'byte',
-        '/^mediumint$|^mediumint\([1-9][0-9]?\)$/' => 'int',
-        '/^int$|^int\([1-9][0-9]?\)$/' => 'int',
-        '/^integer$|^integer\([1-9][0-9]?\)$/' => 'int',
-        '/^bigint$|^bigint\([1-9][0-9]?\)$/' => 'long',
-        '/^serial$/' => 'long',
+        '/^bit$|^bit\([1-9][0-9]?\)$/' => Field::BYTE,
+        '/^smallint$|^smallint\([1-9][0-9]?\)$/' => Field::BYTE,
+        '/^mediumint$|^mediumint\([1-9][0-9]?\)$/' => Field::INTEGER,
+        '/^int$|^int\([1-9][0-9]?\)$/' => Field::INTEGER,
+        '/^integer$|^integer\([1-9][0-9]?\)$/' => Field::INTEGER,
+        '/^bigint$|^bigint\([1-9][0-9]?\)$/' => Field::LONG,
+        '/^serial$/' => Field::LONG,
         '/^dec$|^dec\([1-9][0-9]?\)$|^dec\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'float',
         '/^decimal$|^decimal\([1-9][0-9]?\)$|^decimal\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'float',
         '/^double$|^double\([1-9][0-9]?\)$|^double\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'double',
@@ -38,13 +39,13 @@ class MysqlDbStructure extends DbStructure
 
     public function getListTables(): array
     {
-        $stat = $this->dbConnector->getPdo()->query('SELECT `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`= SCHEMA()');
+        $stat = $this->dbConnector->getPdo()->query('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA= SCHEMA()');
         return $stat->fetchAll(PDO::FETCH_COLUMN);
     }
 
     public function getListFields($table): array
     {
-        $sql = "SELECT `COLUMN_NAME`,`COLUMN_TYPE`,`COLUMN_KEY`,`IS_NULLABLE` FROM `INFORMATION_SCHEMA`.`columns` WHERE `TABLE_SCHEMA` = SCHEMA() AND `TABLE_NAME` = '{$table}'";
+        $sql = "SELECT COLUMN_NAME,COLUMN_TYPE,COLUMN_KEY,IS_NULLABLE FROM INFORMATION_SCHEMA.columns WHERE TABLE_SCHEMA = SCHEMA() AND TABLE_NAME = '{$table}'";
         $stat = $this->dbConnector->getPdo()->query($sql);
         return $stat->fetchAll(PDO::FETCH_ASSOC);
     }

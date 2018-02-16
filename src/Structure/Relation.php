@@ -12,7 +12,7 @@ namespace SnowSerge\Sql2Orm\Structure;
  * Class Relation
  * @package SnowSerge\Sql2Orm\Structure
  */
-class Relation
+final class Relation
 {
     /** @var Table */
     private $tableOne;
@@ -102,6 +102,10 @@ class Relation
         return $this;
     }
 
+    /**
+     * Factory method
+     * @return Relation
+     */
     public static function get(): Relation
     {
         return new self();

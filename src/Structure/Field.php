@@ -7,14 +7,16 @@
 namespace SnowSerge\Sql2Orm\Structure;
 
 
-class Field
+final class Field
 {
 // TODO make driver type conversation
-    const STRING = 'string';
-    const INTEGER = 'int';
-    const DATE = 'date';
-    const LONG = 'long';
-    const FLOAT = 'float';
+    public const BYTE = 'byte';
+    public const STRING = 'string';
+    public const INTEGER = 'int';
+    public const DATE = 'date';
+    public const LONG = 'long';
+    public const FLOAT = 'float';
+    public const DOUBLE = 'double';
 
 
     /** @var string */

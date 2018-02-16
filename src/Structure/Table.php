@@ -7,13 +7,13 @@
 namespace SnowSerge\Sql2Orm\Structure;
 
 
-class Table
+final class Table
 {
     /** @var string */
     private $name;
     /** @var Field[] */
     private $fields;
-    /** @var Field */
+    /** @var Field[] */
     private $primary;
 
     /**
@@ -51,9 +51,9 @@ class Table
     }
 
     /**
-     * @return Field
+     * @return Field[]
      */
-    public function getPrimary(): Field
+    public function getPrimary(): array
     {
         return $this->primary;
     }
@@ -69,11 +69,19 @@ class Table
     }
 
     /**
-     * @param Field $primary
+     * @param Field[] $primary
      */
-    public function setPrimary($primary): void
+    public function setPrimaries(array $primary): void
     {
         $this->primary = $primary;
+    }
+
+    /**
+     * @param $field Field
+     */
+    public function addPrimary($field)
+    {
+        $this->primary[$field->getOrmName()] = $field;
     }
 
     public static function getTable($name): Table
