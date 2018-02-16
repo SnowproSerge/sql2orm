@@ -23,10 +23,15 @@ class MysqlDbStructure extends DbStructure
         '/^integer$|^integer\([1-9][0-9]?\)$/' => Field::INTEGER,
         '/^bigint$|^bigint\([1-9][0-9]?\)$/' => Field::LONG,
         '/^serial$/' => Field::LONG,
-        '/^dec$|^dec\([1-9][0-9]?\)$|^dec\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'float',
-        '/^decimal$|^decimal\([1-9][0-9]?\)$|^decimal\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'float',
-        '/^double$|^double\([1-9][0-9]?\)$|^double\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'double',
-        '/^float$|^float\([1-9][0-9]?\)$|^float\([1-9][0-9]?,[1-9][0-9]?\)$/' => 'float',
+        '/^dec$|^dec\([1-9][0-9]?\)$|^dec\([1-9][0-9]?,[1-9][0-9]?\)$/' => Field::FLOAT,
+        '/^decimal$|^decimal\([1-9][0-9]?\)$|^decimal\([1-9][0-9]?,[1-9][0-9]?\)$/' => Field::FLOAT,
+        '/^double$|^double\([1-9][0-9]?\)$|^double\([1-9][0-9]?,[1-9][0-9]?\)$/' => Field::DOUBLE,
+        '/^float$|^float\([1-9][0-9]?\)$|^float\([1-9][0-9]?,[1-9][0-9]?\)$/' => Field::FLOAT,
+        '/^date$/' => Field::DATE,
+        '/^datetime$|^datetime\([1-6]\)$/' => Field::DATETIME,
+        '/^time$|^time\([1-6]\)$/' => Field::TIME,
+        '/^timestamp$|^timestamp\([1-6]\)$/' => Field::TIMESTAMP,
+
     ];
 
     public function setConnection($nameDb, $host, $user, $password, $port): DbConnection

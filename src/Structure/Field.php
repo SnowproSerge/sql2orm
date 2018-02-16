@@ -17,6 +17,9 @@ final class Field
     public const LONG = 'long';
     public const FLOAT = 'float';
     public const DOUBLE = 'double';
+    public const TIME = 'time';
+    public const DATETIME = 'datetime';
+    public const TIMESTAMP = 'timestamp';
 
 
     /** @var string */
