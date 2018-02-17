@@ -30,30 +30,36 @@ class TableMapper
         $this->dbStructure = $dbStructure;
     }
 
-
-    public function getTable($tableName,$fields): Table
+    /**
+     * @param $tableName
+     * @param $fields
+     * @return Table
+     */
+    public function getTable($tableName,array $fields): Table
     {
         $table = new Table($tableName);
-        $listFields = $this->getFieldList($fields,$this->dbStructure);
-        $table->setFields($listFields);
+        $fieldsArr = [];
+        foreach ($fields as $field) {
+            $newField = $this->getFieldList($field);
+            $fieldsArr[$field['COLUMN_NAME']] = $newField;
+            if(strtolower($field['COLUMN_KEY']) === 'pri') {
+                $table->addPrimary($newField);
+            }
+        }
+        $table->setFields($fieldsArr);
         return $table;
     }
 
-    /**
-     * @param array $arrFields
-     * @return Field[]
-     */
-    private function getFieldList(array $arrFields): array
+        /**
+         * @param array $field
+         * @return Field
+         */
+    private function getFieldList(array $field): Field
     {
-        $fields = [];
-        foreach ($arrFields as $field) {
-            $newField = Field::getField($field['COLUMN_NAME'])
+            return Field::getField($field['COLUMN_NAME'])
                 ->setType($this->dbStructure->convertType($field['COLUMN_TYPE']))
                 ->setNullable(strtolower($field['IS_NULLABLE']) === 'yes')
                 ->setUnique(strtolower($field['COLUMN_KEY']) === 'uni');
-            $fields[$field['COLUMN_NAME']] = $newField;
-        }
-        return $fields;
     }
 
     /**

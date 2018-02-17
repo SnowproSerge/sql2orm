@@ -81,7 +81,7 @@ final class Table
      */
     public function addPrimary($field)
     {
-        $this->primary[$field->getOrmName()] = $field;
+        $this->primary[] = $field;
     }
 
     public static function getTable($name): Table

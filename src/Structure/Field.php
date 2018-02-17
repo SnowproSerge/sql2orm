@@ -39,12 +39,11 @@ final class Field
     /**
      * Field constructor.
      * @param string $name
-     * @param string $type
      */
-    public function __construct(string $name,string $type = self::STRING)
+    public function __construct(string $name)
     {
         $this->name = $name;
-        $this->type = $type;
+        $this->type = self::STRING;
         $this->snakeToCamel();
     }
 

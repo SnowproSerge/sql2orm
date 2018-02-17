@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use SnowSerge\Sql2Orm\Db\MysqlDbStructure;
 use SnowSerge\Sql2Orm\Mapper\TableMapper;
 use SnowSerge\Sql2Orm\Structure\Field;
+use SnowSerge\Sql2Orm\Structure\Table;
 
 class TableMapperTest extends TestCase
 {
@@ -42,6 +43,32 @@ class TableMapperTest extends TestCase
         ];
     }
 
+    public function providerGetTable(): array
+    {
+        return [
+            'one' => [
+                [
+                    'table',
+                    [
+                        [
+                            'COLUMN_NAME' => 'Host',
+                            'COLUMN_TYPE' => 'TEXT',
+                            'COLUMN_KEY' => 'PRI',
+                            'IS_NULLABLE' => 'Yes'
+                        ],
+                        [
+                            'COLUMN_NAME' => 'Host_outweaR',
+                            'COLUMN_TYPE' => 'char(60)',
+                            'COLUMN_KEY' => 'UNI',
+                            'IS_NULLABLE' => 'no'
+                        ]
+                    ]
+                ],
+                'Host'
+            ]
+        ];
+    }
+
     /**
      * @dataProvider providerGetFieldList
      * @throws \Exception
@@ -57,8 +84,27 @@ class TableMapperTest extends TestCase
             ->will($this->returnValue('string'));
         $mapper = new TableMapper($connect);
         /** @var Field $fil */
-        $fil = $this->callMethod($mapper, 'getFieldList', [[$in]])[$in['COLUMN_NAME']];
+        $fil = $this->callMethod($mapper, 'getFieldList', [$in]);
         $this->assertArraySubset($out, [$fil->getOrmName(), $fil->getType(), $fil->isNullable(), $fil->isUnique()]);
+    }
+
+    /**
+     * @dataProvider providerGetTable
+     * @throws \Exception
+     */
+    public function testGetTable($in, $out): void
+    {
+        $connect = $this->getMockBuilder(MysqlDbStructure::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['convertType'])
+            ->getMock();
+        $connect->expects($this->any())
+            ->method('convertType')
+            ->will($this->returnValue('string'));
+        $mapper = new TableMapper($connect);
+        /** @var Table $fil */
+        $fil = $this->callMethod($mapper, 'getTable', $in);
+        $this->assertEquals($out, $fil->getPrimary()[0]->getName());
     }
 
 

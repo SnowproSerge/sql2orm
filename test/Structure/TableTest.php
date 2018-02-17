@@ -15,8 +15,8 @@ class TableTest extends TestCase
 
     public function testGetField(): void
     {
-        $fields['id'] = new Field('id',Field::INTEGER);
-        $fields['idx'] = new Field('idx',Field::INTEGER);
+        $fields['id'] = Field::getField('id')->setType(Field::INTEGER);
+        $fields['idx'] = Field::getField('idx')->setType(Field::INTEGER);
         $table = Table::getTable('test')
             ->setFields($fields);
         $idx =  $table->getField('idx');
@@ -24,8 +24,8 @@ class TableTest extends TestCase
     }
     public function testGetFieldNull(): void
     {
-        $fields['id'] = new Field('id',Field::INTEGER);
-        $fields['idx'] = new Field('idx',Field::INTEGER);
+        $fields['id'] = Field::getField('id')->setType(Field::INTEGER);
+        $fields['idx'] = Field::getField('idx')->setType(Field::INTEGER);
         $table = Table::getTable('test')
             ->setFields($fields);
         $idx =  $table->getField('id1');
