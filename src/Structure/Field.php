@@ -20,6 +20,8 @@ final class Field
     public const TIME = 'time';
     public const DATETIME = 'datetime';
     public const TIMESTAMP = 'timestamp';
+    public const ENUM = 'ENUM';
+
 
 
     /** @var string */

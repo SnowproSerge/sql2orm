@@ -87,7 +87,7 @@ class MysqlDbStructureTest extends TestCase
             'DOUBLE(10,1)' => [ 'DOUBLE(10,1) ','double'],
             'DOUBLE(10,11)' => [ 'DOUBLE(10,11) ','double'],
             'DATETIME' => [ 'dateTime','datetime'],
-            'DATETIME(6)' => [ 'dateTine(6) ','datetime'],
+            'DATETIME(6)' => [ 'dateTime(6) ','datetime'],
             'DATETIME(7)' => [ 'DATETIME(7) ','string'],
             'DATE' => [ 'date','date'],
             'DATE(6)' => [ 'date(6) ','string'],
@@ -95,6 +95,7 @@ class MysqlDbStructureTest extends TestCase
             'TIME(6)' => [ 'time(6) ','time'],
             'TIMESTAMP' => [ 'TIMESTAMP','timestamp'],
             'TIMESTAMP(6)' => [ 'TIMESTAMP(6) ','timestamp'],
+            "EnuM('a','b','c')" => [ "EnuM('a','b','c')","ENUM('a','b','c')"],
         ];
     }
 

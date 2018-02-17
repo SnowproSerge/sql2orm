@@ -31,6 +31,7 @@ class MysqlDbStructure extends DbStructure
         '/^datetime$|^datetime\([1-6]\)$/' => Field::DATETIME,
         '/^time$|^time\([1-6]\)$/' => Field::TIME,
         '/^timestamp$|^timestamp\([1-6]\)$/' => Field::TIMESTAMP,
+        '/^enum(.*)$/' => Field::ENUM. '$1',
 
     ];
 
@@ -75,10 +76,10 @@ class MysqlDbStructure extends DbStructure
 
     public function convertType(string $type): string
     {
-        $t = strtolower(trim($type));
+        $t = trim($type);
         $count = 0;
         foreach (self::$types as $pattern => $replacement) {
-            $out = preg_replace($pattern, $replacement, $t, 1, $count);
+            $out = preg_replace($pattern.'i', $replacement, $t, 1, $count);
             if($count) {
                 return $out;
             }
