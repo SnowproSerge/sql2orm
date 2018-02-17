@@ -18,35 +18,37 @@ use SnowSerge\Sql2Orm\Structure\Table;
 class TableMapper
 {
 
+    /** @var DbStructure */
+    private $dbStructure;
+
     /**
      * TableMapper constructor.
+     * @param $dbStructure
      */
-    public function __construct()
+    public function __construct($dbStructure)
     {
+        $this->dbStructure = $dbStructure;
     }
 
 
     public function getTable($tableName,$fields): Table
     {
         $table = new Table($tableName);
-        $listFields = $this->getFieldList($fields);
+        $listFields = $this->getFieldList($fields,$this->dbStructure);
         $table->setFields($listFields);
         return $table;
     }
 
     /**
      * @param array $arrFields
-     * @param $convert callable
      * @return Field[]
      */
-//    private function getFieldList(array $arrFields,callable $convert): array
     private function getFieldList(array $arrFields): array
     {
         $fields = [];
         foreach ($arrFields as $field) {
             $newField = Field::getField($field['COLUMN_NAME'])
-//                ->setType($convert($field['COLUMN_TYPE']))
-                ->setType($field['COLUMN_TYPE'])
+                ->setType($this->dbStructure->convertType($field['COLUMN_TYPE']))
                 ->setNullable(strtolower($field['IS_NULLABLE']) === 'yes')
                 ->setUnique(strtolower($field['COLUMN_KEY']) === 'uni');
             $fields[$field['COLUMN_NAME']] = $newField;

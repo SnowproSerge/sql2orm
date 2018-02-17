@@ -24,11 +24,11 @@ class TableMapperTest extends TestCase
             'one' => [
                 [
                     'COLUMN_NAME' => 'Host',
-                    'COLUMN_TYPE' => 'char(60)',
+                    'COLUMN_TYPE' => 'TEXT',
                     'COLUMN_KEY' => 'PRI',
                     'IS_NULLABLE' => 'Yes'
                 ],
-                ['host', 'char(60)', true, false]
+                ['host', 'string', true, false]
             ],
             'two' => [
                 [
@@ -37,7 +37,7 @@ class TableMapperTest extends TestCase
                     'COLUMN_KEY' => 'UNI',
                     'IS_NULLABLE' => 'no'
                 ],
-                ['hostOutwear', 'char(60)', false, true]
+                ['hostOutwear', 'string', false, true]
             ]
         ];
     }
@@ -48,10 +48,16 @@ class TableMapperTest extends TestCase
      */
     public function testGetFieldList($in, $out): void
     {
-        $mapper = new TableMapper();
+        $connect = $this->getMockBuilder(MysqlDbStructure::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['convertType'])
+            ->getMock();
+        $connect->expects($this->any())
+            ->method('convertType')
+            ->will($this->returnValue('string'));
+        $mapper = new TableMapper($connect);
         /** @var Field $fil */
         $fil = $this->callMethod($mapper, 'getFieldList', [[$in]])[$in['COLUMN_NAME']];
-//        $fil = $mapper->getFieldList([$in])[$in['COLUMN_NAME']];
         $this->assertArraySubset($out, [$fil->getOrmName(), $fil->getType(), $fil->isNullable(), $fil->isUnique()]);
     }
 

@@ -35,7 +35,7 @@ class Database
         $this->dbStructure = $dbStructure;
         $this->tables = [];
         $this->relations = [];
-        $this->mapper = new TableMapper();
+        $this->mapper = new TableMapper($dbStructure);
         $this->setTables();
         $this->setRelation();
     }
