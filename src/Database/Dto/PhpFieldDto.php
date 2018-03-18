@@ -4,10 +4,10 @@
  * @date: 15.02.2018
  */
 
-namespace SnowSerge\Sql2Orm\Dto;
+namespace SnowSerge\Sql2Orm\Database\Dto;
 
 
-use SnowSerge\Sql2Orm\Structure\Field;
+use SnowSerge\Sql2Orm\Database\Structure\Field;
 
 class PhpFieldDto extends FieldDto
 {

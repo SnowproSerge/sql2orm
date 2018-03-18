@@ -4,9 +4,9 @@
  * @date 28.01.2018
  */
 
-namespace SnowSerge\Sql2Orm\Db;
+namespace SnowSerge\Sql2Orm\Database\Db;
 use PDO;
-use SnowSerge\Sql2Orm\Structure\Field;
+use SnowSerge\Sql2Orm\Database\Structure\Field;
 
 /**
  * Generated for MySQL

@@ -4,7 +4,7 @@
  * @date: 15.02.2018
  */
 
-namespace SnowSerge\Sql2Orm\Entity;
+namespace SnowSerge\Sql2Orm\Database\Entity;
 
 
 interface FieldEntity

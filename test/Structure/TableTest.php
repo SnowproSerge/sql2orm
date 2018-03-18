@@ -6,8 +6,8 @@
 
 namespace SnowSerge\Test\Sql2Orm\Structure;
 
-use SnowSerge\Sql2Orm\Structure\Field;
-use SnowSerge\Sql2Orm\Structure\Table;
+use SnowSerge\Sql2Orm\Database\Structure\Field;
+use SnowSerge\Sql2Orm\Database\Structure\Table;
 use PHPUnit\Framework\TestCase;
 
 class TableTest extends TestCase

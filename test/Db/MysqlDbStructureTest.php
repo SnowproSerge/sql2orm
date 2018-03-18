@@ -4,9 +4,9 @@
  * @date 28.01.2018
  */
 
-namespace SnowSerge\Sql2Orm\Test\Db;
+namespace SnowSerge\Sql2Orm\Database\Test\Db;
 
-use SnowSerge\Sql2Orm\Db\MysqlDbStructure;
+use SnowSerge\Sql2Orm\Database\Db\MysqlDbStructure;
 use PHPUnit\Framework\TestCase;
 
 class MysqlDbStructureTest extends TestCase

@@ -6,14 +6,14 @@
  * Time: 20:01
  */
 
-namespace SnowSerge\Sql2Orm\Test\Mapper;
+namespace SnowSerge\Sql2Orm\Database\Test\Mapper;
 
 
 use PHPUnit\Framework\TestCase;
-use SnowSerge\Sql2Orm\Db\MysqlDbStructure;
-use SnowSerge\Sql2Orm\Mapper\TableMapper;
-use SnowSerge\Sql2Orm\Structure\Field;
-use SnowSerge\Sql2Orm\Structure\Table;
+use SnowSerge\Sql2Orm\Database\Db\MysqlDbStructure;
+use SnowSerge\Sql2Orm\Database\Mapper\TableMapper;
+use SnowSerge\Sql2Orm\Database\Structure\Field;
+use SnowSerge\Sql2Orm\Database\Structure\Table;
 
 class TableMapperTest extends TestCase
 {

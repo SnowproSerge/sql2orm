@@ -6,14 +6,14 @@
  * Time: 17:37
  */
 
-namespace SnowSerge\Sql2Orm\Mapper;
+namespace SnowSerge\Sql2Orm\Database\Mapper;
 
 
 
-use SnowSerge\Sql2Orm\Db\DbStructure;
-use SnowSerge\Sql2Orm\Structure\Field;
-use SnowSerge\Sql2Orm\Structure\Relation;
-use SnowSerge\Sql2Orm\Structure\Table;
+use SnowSerge\Sql2Orm\Database\Db\DbStructure;
+use SnowSerge\Sql2Orm\Database\Structure\Field;
+use SnowSerge\Sql2Orm\Database\Structure\Relation;
+use SnowSerge\Sql2Orm\Database\Structure\Table;
 
 class TableMapper
 {

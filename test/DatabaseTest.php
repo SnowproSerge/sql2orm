@@ -4,11 +4,11 @@
  * @date 14.02.2018
  */
 
-namespace SnowSerge\Sql2Orm\Test;
+namespace SnowSerge\Sql2Orm\Database\Test;
 
 use PHPUnit\Framework\TestCase;
-use SnowSerge\Sql2Orm\Database;
-use SnowSerge\Sql2Orm\Db\MysqlDbStructure;
+use SnowSerge\Sql2Orm\Database\Database;
+use SnowSerge\Sql2Orm\Database\Db\MysqlDbStructure;
 
 class DatabaseTest extends TestCase
 {

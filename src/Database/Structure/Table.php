@@ -4,7 +4,7 @@
  * @date 28.01.2018
  */
 
-namespace SnowSerge\Sql2Orm\Structure;
+namespace SnowSerge\Sql2Orm\Database\Structure;
 
 
 final class Table
