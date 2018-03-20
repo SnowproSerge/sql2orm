@@ -64,7 +64,7 @@ class MysqlDbStructure extends DbStructure
     {
         $sql = 'SELECT `TABLE_NAME`, `COLUMN_NAME`, `REFERENCED_TABLE_NAME`, `REFERENCED_COLUMN_NAME`'
             . ' FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE`'
-            . "WHERE `TABLE_SCHEMA` = SCHEMA() AND `REFERENCED_TABLE_NAME` IS NOT NULL AND `TABLE_NAME` = '{$table}'";
+            . " WHERE `TABLE_SCHEMA` = SCHEMA() AND `REFERENCED_TABLE_NAME` IS NOT NULL AND `TABLE_NAME` = '{$table}'";
         $stat = $this->dbConnector->getPdo()->query($sql);
         return $stat->fetchAll(PDO::FETCH_ASSOC);
     }

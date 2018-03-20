@@ -31,7 +31,7 @@ class MysqlDbStructureTest extends TestCase
     {
 
         $arr = $this->obj->getListTables();
-        $this->assertContains('councilman',$arr);
+        $this->assertContains('types',$arr);
     }
 
     /**
@@ -39,8 +39,9 @@ class MysqlDbStructureTest extends TestCase
      */
     public function testGetListFields(): void
     {
-        $fields = $this->obj->getListFields('instructor');
-        $this->assertContains(['COLUMN_NAME'=>'first_name','COLUMN_TYPE'=>'varchar(40)','COLUMN_KEY'=>'','IS_NULLABLE'=>'NO'],$fields);
+        $fields = $this->obj->getListFields('one_to_one1');
+//        print_r($fields);
+        $this->assertContains(['COLUMN_NAME'=>'id','COLUMN_TYPE'=>'int(10)','COLUMN_KEY'=>'PRI','IS_NULLABLE'=>'NO'],$fields);
     }
 
     /**
@@ -48,9 +49,8 @@ class MysqlDbStructureTest extends TestCase
      */
     public function testGetRelations(): void
     {
-        $re = $this->obj->getRelations('councilman');
-//        var_dump($re);
-        $this->assertEquals(\count($re),2);
+        $re = $this->obj->getRelations('one_to_one1');
+        $this->assertEquals(\count($re),1);
     }
 
     public function convertTypeDataProvider(): array

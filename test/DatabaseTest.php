@@ -20,19 +20,24 @@ class DatabaseTest extends TestCase
         $this->obj = new Database(new MysqlDbStructure('sovet','mysql_c','root', 'root'));
     }
 
-
+    /**
+     * @throws \Exception
+     */
     public function testGetTables(): void
     {
         $tables = $this->obj->getTables();
 //        print_r($tables);
-        $this->assertEquals('instructor',$tables['instructor']->getName());
+        $this->assertEquals('types',$tables['types']->getName());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetRelations(): void
     {
         $relations = $this->obj->getRelations();
 //        print_r($relations);
-        $this->assertEquals('instructor',$relations['councilman']['instructor']->getTableOne()->getName());
+        $this->assertEquals('one_to_many_one',$relations['one_to_many_many']['one_to_many_one']->getTableOne()->getName());
 
     }
 }
