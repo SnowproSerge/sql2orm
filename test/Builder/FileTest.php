@@ -18,6 +18,7 @@ class FileTest extends TestCase
     protected function setUp()
     {
         $this->obj = new File('TestFile');
+        $this->obj->setNamespace('test\\namespace');
     }
 
     /**
@@ -35,7 +36,7 @@ class FileTest extends TestCase
      */
     public function testSetNamespace(): void
     {
-        $this->obj->setNamespace('test\\namespace');
+
         $file = $this->obj->getFile();
         $this->assertContains('test\\namespace',$file);
     }
@@ -53,7 +54,6 @@ class FileTest extends TestCase
      */
     public function testGetFile(): void
     {
-        $this->obj->setNamespace('test\\namespace');
         $this->obj->addToFile('$name = \'vasya\';'."\n");
         $file = $this->obj->getFile();
         $this->assertContains('class',$file);

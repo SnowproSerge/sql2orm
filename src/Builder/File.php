@@ -6,7 +6,11 @@
 
 namespace SnowSerge\Sql2Orm\Builder;
 
-
+/**
+ * Генерирует класс в заданном namespace
+ * Class File
+ * @package SnowSerge\Sql2Orm\Builder
+ */
 final class File
 {
 /** @var string */
@@ -35,7 +39,7 @@ final class File
          $head = <<<CLASSBODY
 <?php
 
-namespace {$this->namespace};
+{$this->getNamespace()}
         
 class {$this->name}
 {    
@@ -85,4 +89,14 @@ CLASSBODY;
                  .$this->printFooter();
     }
 
+    /**
+     * @return string
+     */
+    private function getNamespace(): string
+    {
+        if(empty($this->namespace)) {
+            return '';
+        }
+        return 'namespace '.$this->namespace.";\n";
+    }
 }
