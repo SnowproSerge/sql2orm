@@ -12,7 +12,7 @@ services:
     container_name: mysql_db
     volumes:
       - ./docker/mysql:/var/lib/mysql/
-#    command: --init-file /var/lib/mysql/test_databse.sql
+    command: --init-file /var/lib/mysql/test_database.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sovet
