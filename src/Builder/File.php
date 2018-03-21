@@ -11,7 +11,7 @@ namespace SnowSerge\Sql2Orm\Builder;
  * Class File
  * @package SnowSerge\Sql2Orm\Builder
  */
-final class File
+class File
 {
 /** @var string */
     private $name;
