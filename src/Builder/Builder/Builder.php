@@ -19,6 +19,13 @@ abstract class Builder
     /** @var string */
     protected $suffix;
 
+    /** @var array */
+    public static $convertType = [
+        'int' => 'int',
+        'date' => 'date',
+        'varchar' => 'string'
+    ];
+
     /**
      * Builder constructor.
      * @param Database $database
@@ -32,5 +39,5 @@ abstract class Builder
         $this->suffix = $suffix;
     }
 
-    abstract public function build(string $tableName): Folder;
+    abstract public function build(): Folder;
 }

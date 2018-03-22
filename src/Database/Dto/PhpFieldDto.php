@@ -23,7 +23,6 @@ class PhpFieldDto extends FieldDto
 
     public function printDeclaration(): string
     {
-
         return "\t/** @var ".self::$convertType[$this->field->getType()]."*/\n\tprivate \$".$this->field->getOrmName()."\n\n";
     }
 

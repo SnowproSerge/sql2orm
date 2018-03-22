@@ -58,15 +58,4 @@ class FileTest extends TestCase
         $file = $this->obj->getFile();
         $this->assertContains('class',$file);
     }
-
-    public function callMethod($obj, $name, array $args)
-    {
-        try {
-            $class = new \ReflectionClass($obj);
-        } catch (\ReflectionException $e) {
-        }
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method->invokeArgs($obj, $args);
-    }
 }
