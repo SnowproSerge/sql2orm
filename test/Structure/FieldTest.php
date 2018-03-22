@@ -28,8 +28,9 @@ class FieldTest extends TestCase
 
     /**
      * @dataProvider providerSnakeToCamel
+     * @throws \Exception
      */
-    public function testSnakeToCamel($input,$output)
+    public function testSnakeToCamel($input,$output) :void
     {
         $field = new Field($input);
         $this->assertEquals($field->getOrmName(),$output);

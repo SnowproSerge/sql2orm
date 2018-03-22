@@ -7,6 +7,8 @@
 namespace SnowSerge\Sql2Orm\Database\Structure;
 
 
+use SnowSerge\Sql2Orm\Helper\ConvertingNamesHelper;
+
 final class Field
 {
 // TODO make driver type conversation
@@ -52,20 +54,7 @@ final class Field
      */
     public function snakeToCamel() :void
     {
-        $tmp = preg_replace_callback(
-            '/^([^-_]+)/',
-            function ($world) {
-                return strtolower($world[1]);
-                },
-            $this->name
-        );
-        $this->ormName = preg_replace_callback(
-            '/[-_]([^-_]+)/',
-            function ($world) {
-                return ucwords(strtolower($world[1]));
-                },
-            $tmp
-        );
+        $this->ormName = ConvertingNamesHelper::snakeToCamel($this->name,false);
     }
 
     /**
