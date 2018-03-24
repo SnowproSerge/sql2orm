@@ -31,7 +31,8 @@ class BuilderDtoTest extends TestCase
     }
     public function testBuild(): void
     {
-
+        $var = 'ddd';
+        $this->assertEquals('ddd',$var);
     }
 
     /**
@@ -53,7 +54,6 @@ class BuilderDtoTest extends TestCase
         $field = Field::getField('vasya_pupkin')
             ->setType('int')->setNullable(false);
         $vari = $this->callMethod($this->obj,'makeGetter',[$field]);
-        echo $vari;
         $this->assertContains(' getVasyaPupkin(',$vari);
     }
 
@@ -73,6 +73,7 @@ class BuilderDtoTest extends TestCase
         try {
             $class = new \ReflectionClass($obj);
         } catch (\ReflectionException $e) {
+            echo $e->getMessage();
         }
         $method = $class->getMethod($name);
         $method->setAccessible(true);

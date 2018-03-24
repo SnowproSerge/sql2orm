@@ -9,6 +9,7 @@ namespace SnowSerge\Sql2Orm\Builder\Builder;
 
 use SnowSerge\Sql2Orm\Builder\Folder;
 use SnowSerge\Sql2Orm\Database\Database;
+use SnowSerge\Sql2Orm\Database\Structure\Field;
 
 abstract class Builder
 {
@@ -21,9 +22,16 @@ abstract class Builder
 
     /** @var array */
     public static $convertType = [
-        'int' => 'int',
-        'date' => 'date',
-        'varchar' => 'string'
+        Field::BYTE      => 'int',
+        Field::STRING    => 'string',
+        Field::DATE      => 'date',
+        Field::INTEGER   => 'int',
+        Field::LONG      => 'int',
+        Field::FLOAT     => 'float',
+        Field::DOUBLE    => 'double',
+        Field::DATETIME  => 'date',
+        Field::TIMESTAMP => 'int',
+        Field::ENUM      => 'string'
     ];
 
     /**
