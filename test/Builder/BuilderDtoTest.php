@@ -9,6 +9,7 @@ namespace SnowSerge\Sql2Orm\Builder\Builder;
 
 use PHPUnit\Framework\TestCase;
 use SnowSerge\Sql2Orm\Database\Database;
+use SnowSerge\Sql2Orm\Database\Db\MysqlDbStructure;
 use SnowSerge\Sql2Orm\Database\Structure\Field;
 use SnowSerge\Sql2Orm\Database\Structure\Table;
 
@@ -29,10 +30,23 @@ class BuilderDtoTest extends TestCase
             ->will($this->returnValue([new Table('test_data')]));
         $this->obj = new BuilderDto($database,'SnowSerge\\Testing\\','Dto');
     }
+
+    /**
+     * @throws \Exception
+     */
     public function testBuild(): void
     {
-        $var = 'ddd';
-        $this->assertEquals('ddd',$var);
+        $structure = new MysqlDbStructure('sovet','mysql_c','root', 'root');
+        $database = new Database($structure);
+        $build = new BuilderDto($database,'SnowSerge\\Testing','Dto');
+        $folder = $build->build();
+        $str='';
+        foreach ($folder as $file) {
+            if($file->getName() === 'Types.php') {
+                $str = $file->getFile();
+            }
+        }
+        $this->assertContains('/** @var $fEnum string */',$str);
     }
 
     /**
@@ -68,6 +82,37 @@ class BuilderDtoTest extends TestCase
         $this->assertContains(' setVasyaPupkin(',$vari);
     }
 
+    
+    public function providerConvertType(): array
+    {
+        return [
+            Field::BYTE      => [Field::BYTE,'int'],
+            Field::STRING    => [Field::STRING,'string'],
+            Field::DATE      => [Field::DATE,'date'],
+            Field::INTEGER   => [Field::INTEGER,'int'],
+            Field::LONG      => [Field::LONG,'int'],
+            Field::FLOAT     => [Field::FLOAT,'float'],
+            Field::DOUBLE    => [Field::DOUBLE,'double'],
+            Field::TIMESTAMP => [Field::TIMESTAMP,'int'],
+            Field::DATETIME  => [Field::DATETIME,'date'],
+            Field::TIME      => [Field::TIME,'date'],
+            Field::ENUM      => [Field::ENUM.'(\'1\',2,\'test\')','string']
+        ];    
+    }
+
+    /**
+     * @dataProvider providerConvertType
+     * @param $in
+     * @param $out
+     * @throws \Exception
+     */
+    public function testConvertType(string $in,string $out) :void
+    {
+        $vari = $this->callMethod($this->obj,'convertType',[$in]);
+        $this->assertEquals($out,$vari);
+    }
+    
+    
     public function callMethod($obj, $name, array $args)
     {
         try {

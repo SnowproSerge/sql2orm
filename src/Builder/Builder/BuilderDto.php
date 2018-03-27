@@ -15,7 +15,6 @@ use SnowSerge\Sql2Orm\Helper\ConvertingNamesHelper;
 
 class BuilderDto extends Builder
 {
-    private $sss;
     /**
      * Build Folder object with File objects
      *
@@ -23,7 +22,7 @@ class BuilderDto extends Builder
      */
     public function build(): Folder
     {
-        $folder = new Folder('Dto',$this->namespace.'\\Dto');
+        $folder = new Folder('Dto',$this->namespace);
         foreach ($this->database->getTables() as $table) {
             $file = $this->getFile($table);
             if($file !== null) {
@@ -42,7 +41,14 @@ class BuilderDto extends Builder
      */
     private function makeVariable(Field $field): string
     {
-        return '    /** @var '.$field->getOrmName().' '.self::$convertType[$field->getType()]." */\n".'    private $'.$field->getOrmName().';'."\n";
+        $varName = $field->getOrmName();
+        $varType = $this->convertType($field->getType());
+        return <<<VARBODY
+        
+    /** @var \${$varName} {$varType} */
+    private \${$varName};
+    
+VARBODY;
     }
 
     /**
@@ -53,35 +59,22 @@ class BuilderDto extends Builder
      */
     private function makeSetter(Field $field): string
     {
-        $type = self::$convertType[$field->getType()];
+        $type = $this->convertType($field->getType());
         $functionName = ConvertingNamesHelper::snakeToCamel($field->getName(),true);
         $var = '$'.$field->getOrmName();
         return <<<FUNCBODY
+
+        
     /**
     * Setter for {$var}
-    * @param {$type} {$var}  
+    * @param {$var} {$type}   
     */
     public function set{$functionName}({$var}) :void
     {
         \$this->{$var} = {$var};
-    }    
+    }
+    
 FUNCBODY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSss()
-    {
-        return $this->sss;
-    }
-
-    /**
-     * @param mixed $sss
-     */
-    public function setSss($sss): void
-    {
-        $this->sss = $sss;
     }
 
     /**
@@ -92,10 +85,12 @@ FUNCBODY;
      */
     private function makeGetter(Field $field): string
     {
-        $type = self::$convertType[$field->getType()];
+        $type = $this->convertType($field->getType());
         $functionName = ConvertingNamesHelper::snakeToCamel($field->getName(),true);
         $var = '$'.$field->getOrmName();
         return <<<FUNCBODY
+
+        
     /**
     * Getter for {$var}
     * @return {$type}   
@@ -103,7 +98,8 @@ FUNCBODY;
     public function get{$functionName}({$var}) :{$type}
     {
         return \$this->{$var};
-    }    
+    }
+        
 FUNCBODY;
     }
 

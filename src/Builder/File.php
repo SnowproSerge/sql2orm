@@ -42,7 +42,7 @@ class File
 {$this->getNamespace()}
         
 class {$this->name}
-{    
+{ 
    
 CLASSBODY;
          return $head;
@@ -53,7 +53,7 @@ CLASSBODY;
      */
     private function printFooter(): string
     {
-        return "}\n";
+        return "\n}\n";
     }
 
     /**

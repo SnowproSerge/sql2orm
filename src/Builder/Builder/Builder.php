@@ -22,16 +22,17 @@ abstract class Builder
 
     /** @var array */
     public static $convertType = [
-        Field::BYTE      => 'int',
-        Field::STRING    => 'string',
-        Field::DATE      => 'date',
-        Field::INTEGER   => 'int',
-        Field::LONG      => 'int',
-        Field::FLOAT     => 'float',
-        Field::DOUBLE    => 'double',
-        Field::DATETIME  => 'date',
-        Field::TIMESTAMP => 'int',
-        Field::ENUM      => 'string'
+        '/^'.Field::BYTE.'/'        => 'int',
+        '/^'.Field::TIMESTAMP.'/'   => 'int',
+        '/^'.Field::INTEGER.'/'     => 'int',
+        '/^'.Field::LONG.'/'        => 'int',
+        '/^'.Field::DATE.'/'        => 'date',
+        '/^'.Field::DATETIME.'/'    => 'date',
+        '/^'.Field::TIME.'/'        => 'date',
+        '/^'.Field::FLOAT.'/'       => 'float',
+        '/^'.Field::DOUBLE.'/'      => 'double',
+        '/^'.Field::STRING.'/'      => 'string',
+        '/^'.Field::ENUM.'\(.*\)/'  => 'string'
     ];
 
     /**
@@ -47,5 +48,19 @@ abstract class Builder
         $this->suffix = $suffix;
     }
 
+    /**
+     * Convert the type of OPM to the type of PHP
+     *
+     * @param string $type
+     * @return string
+     */
+    protected function convertType(string $type): string
+    {
+        return preg_replace(array_keys(self::$convertType),array_values(self::$convertType),$type);
+    }
+
     abstract public function build(): Folder;
+
+
+
 }
