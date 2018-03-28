@@ -61,6 +61,68 @@ abstract class Builder
 
     abstract public function build(): Folder;
 
+    /**
+     * Returning string with declaration variable
+     *
+     * @param string $name Name of variable
+     * @param string $type Type of variable
+     * @return string String with declaration
+     */
+    protected function printVariable(string $name,string $type) :string
+    {
+        return <<<VARBODY
+       
+    /** @var \${$name} {$type} */
+    private \${$name};
+    
+VARBODY;
+    }
 
+    /**
+     * Returning string with declaration Setter
+     *
+     * @param string $functionName Name of function without first 'get'
+     * @param string $var Name of variable
+     * @param string $type Type of variable
+     * @return string String with declaration
+     */
+    protected function printSetter(string $functionName,string $var,string $type) :string
+    {
+        return <<<FUNCBODY
+        
+    /**
+    * Setter for \${$var}
+    * @param \${$var} {$type}   
+    */
+    public function set{$functionName}(\${$var}) :void
+    {
+        \$this->{$var} = \${$var};
+    }
+    
+FUNCBODY;
+    }
 
+    /**
+     * Returning string with declaration Setter
+     *
+     * @param string $functionName Name of function without first 'get'
+     * @param string $var Name of variable
+     * @param string $type Type of variable
+     * @return string String with declaration
+     */
+    protected function printGetter(string $functionName, string $var, string $type) :string
+    {
+        return <<<FUNCBODY
+        
+    /**
+    * Getter for \${$var}
+    * @return {$type}   
+    */
+    public function get{$functionName}(\${$var}) :{$type}
+    {
+        return \$this->{$var};
+    }
+
+FUNCBODY;
+    }
 }

@@ -43,12 +43,7 @@ class BuilderDto extends Builder
     {
         $varName = $field->getOrmName();
         $varType = $this->convertType($field->getType());
-        return <<<VARBODY
-        
-    /** @var \${$varName} {$varType} */
-    private \${$varName};
-    
-VARBODY;
+        return $this->printVariable($varName,$varType);
     }
 
     /**
@@ -61,20 +56,8 @@ VARBODY;
     {
         $type = $this->convertType($field->getType());
         $functionName = ConvertingNamesHelper::snakeToCamel($field->getName(),true);
-        $var = '$'.$field->getOrmName();
-        return <<<FUNCBODY
-
-        
-    /**
-    * Setter for {$var}
-    * @param {$var} {$type}   
-    */
-    public function set{$functionName}({$var}) :void
-    {
-        \$this->{$var} = {$var};
-    }
-    
-FUNCBODY;
+        $var = $field->getOrmName();
+        return $this->printSetter($functionName,$var,$type);
     }
 
     /**
@@ -87,20 +70,8 @@ FUNCBODY;
     {
         $type = $this->convertType($field->getType());
         $functionName = ConvertingNamesHelper::snakeToCamel($field->getName(),true);
-        $var = '$'.$field->getOrmName();
-        return <<<FUNCBODY
-
-        
-    /**
-    * Getter for {$var}
-    * @return {$type}   
-    */
-    public function get{$functionName}({$var}) :{$type}
-    {
-        return \$this->{$var};
-    }
-        
-FUNCBODY;
+        $var = $field->getOrmName();
+        return $this->printGetter($functionName,$var,$type);
     }
 
     /**
