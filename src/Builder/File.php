@@ -7,7 +7,7 @@
 namespace SnowSerge\Sql2Orm\Builder;
 
 /**
- * Генерирует класс в заданном namespace
+ * Generates a class in a given namespace
  * Class File
  * @package SnowSerge\Sql2Orm\Builder
  */
