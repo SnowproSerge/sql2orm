@@ -111,8 +111,13 @@ class BuilderDtoTest extends TestCase
         $vari = $this->callMethod($this->obj,'convertType',[$in]);
         $this->assertEquals($out,$vari);
     }
-    
-    
+
+    /**
+     * @param $obj
+     * @param $name
+     * @param array $args
+     * @return mixed
+     */
     public function callMethod($obj, $name, array $args)
     {
         try {
